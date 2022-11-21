@@ -17,44 +17,42 @@ export const ContainerApp = styled.div`
 `
 export const Container = styled.div`
   width: 80%;
-  height: 80%;
+  height: auto;
   padding: 3rem;
-  background-color: #272a37;
+  background-color: ${colors.grey700};
   border-radius: 1.2rem;
 `
-export const Header = styled.header`
+export const ContentHeader = styled.header`
   display: flex;
+  justify-content: center;
+`
+
+export const TitleHeader = styled.div`
+  justify-content: center;
+  display: flex;
+  align-items: center;
 `
 export const TextHeader = styled.h1`
   list-style: none;
-  margin-right: 5rem;
-  color: ${colors.blue500};
-  font-size: 2.5rem;
-  font-weight: 700;
-`
-export const Main = styled.main`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-`
-export const Form = styled.form``
-
-export const FormText = styled.h1`
+  margin-bottom: 1rem;
   color: ${colors.white500};
-  font-size: 30px;
+  font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 2rem;
+`
+
+export const Form = styled.div`
+  align-items: center;
+  display: flex;
 `
 
 export const MainInput = styled.input`
-  padding: 20px 10px;
+  padding: 1rem 0.5rem;
   border-radius: 1.2rem;
-  width: 400px;
   background-color: ${colors.grey900};
   color: ${colors.white500};
   text-align: center;
   display: block;
-  margin-top: 10px;
+  margin-top: 0.5rem;
   cursor: pointer;
   font-weight: 700;
   margin-bottom: 2rem;
@@ -62,19 +60,31 @@ export const MainInput = styled.input`
 `
 
 export const ButtonSearch = styled.button`
-  padding: 20px 10px;
-  border-radius: 1.2rem;
-  width: 200px;
-  background-color: ${colors.grey900};
+  width: 30px;
+  height: 30px;
+  border-radius: 1rem;
+  border: none;
+  background: ${colors.blue500};
+  margin-left: 10px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: ${colors.white500};
-  text-transform: uppercase;
-  text-align: center;
-  display: block;
-  margin-top: 10px;
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 1rem;
+  transition: ease 0.3s;
+
+  &:hover {
+    transform: scale(1.05);
+    transition: ease 0.3s;
+    cursor: pointer;
+  }
 `
+export const ContainerContent = styled.div`
+  align-items: center;
+  justify-content: center;
+  display: flex;
+`
+
 export const Content = styled.div`
   width: 700px;
   height: 500px;
@@ -100,6 +110,13 @@ export const ContentText = styled.h1`
   margin-top: 2rem;
 `
 export const ContentBio = styled.p`
+  color: ${colors.white500};
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 2rem;
+`
+
+export const ContentFollowers = styled.div`
   color: ${colors.white500};
   font-size: 20px;
   font-weight: 700;
