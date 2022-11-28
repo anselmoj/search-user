@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import colors from '../styles/colors'
+import colors from '../../styles/colors'
 
 export const GeneralContainer = styled.div`
   display: flex;
@@ -79,7 +79,7 @@ export const ButtonSearch = styled.button`
     cursor: pointer;
   }
 `
-export const ContainerContent = styled.div`
+export const ContainerDetails = styled.div`
   align-items: center;
   justify-content: center;
   display: flex;
@@ -121,4 +121,33 @@ export const ContentFollowers = styled.div`
   font-size: 20px;
   font-weight: 700;
   margin-top: 2rem;
+`
+export const ContainerHorizontal = styled.div`
+  width: 100%;
+  height: 80px;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+`
+
+export const ContentNumber = styled.div`
+  width: 100px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+`
+export const TextDetails = styled.h1`
+  font-size: 1.3rem;
+  text-align: center;
+  color: ${colors.white500};
+  margin: 0;
+`
+export const NumberDetails = styled.h2`
+  font-size: 0.8rem;
+  text-align: center;
+  color: ${colors.white500};
+  margin: 0;
 `
