@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { FiSearch } from 'react-icons/fi'
 import { useState } from 'react'
 import {
@@ -22,6 +21,16 @@ import {
   NumberDetails,
 } from './styles'
 import ComponentIsVisible from '../../components/utils/IsVisible'
+import httpClient from '../../services/httpClient'
+
+interface IUserProps {
+  name: string
+  bio: string
+  avatar_url: string
+  followers: number
+  following: number
+  public_repos: number
+}
 
 type GitHubResponse = {
   name: string
@@ -33,36 +42,21 @@ type GitHubResponse = {
 }
 
 function Home() {
-  const [search, setSearch] = useState('')
-  const [name, setName] = useState('')
-  const [bio, setBio] = useState('')
-  const [avatar, setAvatar] = useState('')
-  const [follower, setFollower] = useState(0)
-  const [following, setFollowing] = useState(0)
-  const [repos, setRepos] = useState(0)
-  const [errorMessage, setErrorMessage] = useState('')
+  const [search, setSearch] = useState<string>('')
+  const [user, setUser] = useState<IUserProps | null>(null)
+  const [error, setError] = useState<boolean>(false)
 
   const handleSearch = () => {
-    axios
-      .get<GitHubResponse>(`http://api.github.com/users/${search}`)
+    setError(false)
+    httpClient
+      .get<GitHubResponse>(`${search}`)
       .then((res) => {
-        console.log('res', res.data)
-        setName(res.data.name)
-        setBio(res.data.bio)
-        setAvatar(res.data.avatar_url)
-        setFollower(res.data.followers)
-        setFollowing(res.data.following)
-        setRepos(res.data.public_repos)
+        setUser(res.data)
       })
       .catch((err) => {
-        console.log(err)
+        setError(true)
+        return err
       })
-  }
-
-  const handleErrorMessage = () => {
-    if (!errorMessage) {
-      setErrorMessage(name)
-    }
   }
 
   return (
@@ -85,25 +79,25 @@ function Home() {
             </Form>
           </ContentHeader>
 
-          <ComponentIsVisible when={!!name}>
+          <ComponentIsVisible when={!!user?.name}>
             <ContainerDetails>
               <Content>
-                <ContentImage src={avatar} />
-                <ContentText>{name}</ContentText>
-                <ContentBio>{bio}</ContentBio>
+                <ContentImage src={user?.avatar_url} />
+                <ContentText>{user?.name}</ContentText>
+                <ContentBio>{user?.bio}</ContentBio>
                 <ContainerHorizontal>
                   <ContentNumber>
-                    <TextDetails>{repos}</TextDetails>
+                    <TextDetails>{user?.public_repos}</TextDetails>
                     <NumberDetails>Repositórios</NumberDetails>
                   </ContentNumber>
 
                   <ContentNumber>
-                    <TextDetails>{follower}</TextDetails>
+                    <TextDetails>{user?.followers}</TextDetails>
                     <NumberDetails>Seguidores</NumberDetails>
                   </ContentNumber>
 
                   <ContentNumber>
-                    <TextDetails>{following}</TextDetails>
+                    <TextDetails>{user?.following}</TextDetails>
                     <NumberDetails>Seguindo</NumberDetails>
                   </ContentNumber>
                 </ContainerHorizontal>
@@ -111,7 +105,7 @@ function Home() {
             </ContainerDetails>
           </ComponentIsVisible>
 
-          <ComponentIsVisible when={!handleErrorMessage}>
+          <ComponentIsVisible when={!!error}>
             <ContainerHorizontal>
               <ContentText>Usuário nao encontrado</ContentText>
             </ContainerHorizontal>
