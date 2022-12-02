@@ -26,7 +26,6 @@ export const ContentHeader = styled.header`
   display: flex;
   justify-content: center;
 `
-
 export const TitleHeader = styled.div`
   justify-content: center;
   display: flex;
@@ -39,16 +38,15 @@ export const TextHeader = styled.h1`
   font-size: 2rem;
   font-weight: 700;
 `
-
 export const Form = styled.div`
   align-items: center;
   display: flex;
 `
-
 export const MainInput = styled.input`
-  padding: 1rem 0.5rem;
-  border-radius: 1.2rem;
+  padding: 1rem 4rem;
+  border-radius: 1rem 0 0 1rem;
   background-color: ${colors.grey900};
+  outline: ${colors.grey700};
   color: ${colors.white500};
   text-align: center;
   display: block;
@@ -58,15 +56,30 @@ export const MainInput = styled.input`
   margin-bottom: 2rem;
   font-size: 1.2rem;
 `
+export const ClearButton = styled.button`
+  width: 54px;
+  height: 54px;
+  border: none;
+  background: ${colors.grey900};
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${colors.white500};
+  transition: ease 0.3s;
 
-export const ButtonSearch = styled.button`
-  width: 30px;
-  height: 30px;
-  border-radius: 1rem;
+  &:hover {
+    transition: ease 0.3s;
+    cursor: pointer;
+  }
+`
+export const SearchButton = styled.button`
+  width: 54px;
+  height: 54px;
+  border-radius: 0 1rem 1rem 0;
   border: none;
   background: ${colors.blue500};
-  margin-left: 10px;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -84,7 +97,6 @@ export const ContainerDetails = styled.div`
   justify-content: center;
   display: flex;
 `
-
 export const Content = styled.div`
   width: 700px;
   height: 500px;
@@ -96,7 +108,6 @@ export const Content = styled.div`
   flex-direction: column;
   justify-content: center;
 `
-
 export const ContentImage = styled.img`
   width: 200px;
   height: 200px;
@@ -115,7 +126,6 @@ export const ContentBio = styled.p`
   font-weight: 700;
   margin-top: 2rem;
 `
-
 export const ContentFollowers = styled.div`
   color: ${colors.white500};
   font-size: 20px;
@@ -130,7 +140,6 @@ export const ContainerHorizontal = styled.div`
   align-items: center;
   justify-content: space-evenly;
 `
-
 export const ContentNumber = styled.div`
   width: 100px;
   height: 50px;

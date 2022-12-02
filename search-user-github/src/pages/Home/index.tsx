@@ -1,7 +1,7 @@
-import { FiSearch } from 'react-icons/fi'
+import { FiSearch, FiX } from 'react-icons/fi'
 import { useState } from 'react'
 import {
-  ButtonSearch,
+  SearchButton,
   Container,
   ContainerApp,
   Content,
@@ -19,6 +19,7 @@ import {
   ContainerHorizontal,
   TextDetails,
   NumberDetails,
+  ClearButton,
 } from './styles'
 import ComponentIsVisible from '../../components/utils/IsVisible'
 import httpClient from '../../services/httpClient'
@@ -30,6 +31,7 @@ interface IUserProps {
   followers: number
   following: number
   public_repos: number
+  repos_url: string
 }
 
 type GitHubResponse = {
@@ -39,6 +41,7 @@ type GitHubResponse = {
   followers: number
   following: number
   public_repos: number
+  repos_url: string
 }
 
 function Home() {
@@ -47,16 +50,38 @@ function Home() {
   const [error, setError] = useState<boolean>(false)
 
   const handleSearch = () => {
-    setError(false)
     httpClient
       .get<GitHubResponse>(`${search}`)
       .then((res) => {
-        setUser(res.data)
+        if (!res.data.name) {
+          setError(true)
+        } else {
+          setUser(res.data)
+          handleRepos(res.data.repos_url)
+        }
       })
       .catch((err) => {
         setError(true)
         return err
       })
+  }
+
+  const handleRepos = (urlRepos: string) => {
+    httpClient
+      .get<GitHubResponse>(`${urlRepos}`)
+      .then((res) => {
+        console.log('res', res)
+      })
+      .catch((err) => {
+        setError(true)
+        return err
+      })
+  }
+
+  const handleClear = () => {
+    setSearch('')
+    setUser(null)
+    setError(false)
   }
 
   return (
@@ -69,13 +94,17 @@ function Home() {
           <ContentHeader>
             <Form>
               <MainInput
+                value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 type="text"
                 placeholder="Digite um usuário"
               />
-              <ButtonSearch onClick={handleSearch}>
+              <ClearButton onClick={handleClear}>
+                <FiX size={15} />
+              </ClearButton>
+              <SearchButton onClick={handleSearch}>
                 <FiSearch size={15} />
-              </ButtonSearch>
+              </SearchButton>
             </Form>
           </ContentHeader>
 
@@ -101,13 +130,30 @@ function Home() {
                     <NumberDetails>Seguindo</NumberDetails>
                   </ContentNumber>
                 </ContainerHorizontal>
+
+                <ContainerHorizontal>
+                  <ContentNumber>
+                    <TextDetails>{user?.public_repos}</TextDetails>
+                    <NumberDetails>Repositórios</NumberDetails>
+                  </ContentNumber>
+
+                  <ContentNumber>
+                    <TextDetails>{user?.followers}</TextDetails>
+                    <NumberDetails>Seguidores</NumberDetails>
+                  </ContentNumber>
+
+                  <ContentNumber>
+                    <TextDetails>{user?.following}</TextDetails>
+                    <NumberDetails>Seguindo</NumberDetails>
+                  </ContentNumber>
+                </ContainerHorizontal>
               </Content>
             </ContainerDetails>
           </ComponentIsVisible>
 
           <ComponentIsVisible when={!!error}>
             <ContainerHorizontal>
-              <ContentText>Usuário nao encontrado</ContentText>
+              <ContentText>Perfil não encontrado</ContentText>
             </ContainerHorizontal>
           </ComponentIsVisible>
         </Container>
