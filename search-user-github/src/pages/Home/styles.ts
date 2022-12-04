@@ -6,8 +6,9 @@ export const GeneralContainer = styled.div`
   align-items: center;
   justify-content: space-around;
 `
+
 export const ContainerApp = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background-color: ${colors.grey200};
   display: flex;
@@ -15,22 +16,29 @@ export const ContainerApp = styled.div`
   padding: 3rem;
   justify-content: center;
 `
+
 export const Container = styled.div`
-  width: 80%;
-  height: auto;
-  padding: 3rem;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 1.5rem;
+  padding: 4rem;
   background-color: ${colors.grey700};
   border-radius: 1.2rem;
 `
+
 export const ContentHeader = styled.header`
   display: flex;
   justify-content: center;
 `
+
 export const TitleHeader = styled.div`
   justify-content: center;
   display: flex;
   align-items: center;
 `
+
 export const TextHeader = styled.h1`
   list-style: none;
   margin-bottom: 1rem;
@@ -38,11 +46,13 @@ export const TextHeader = styled.h1`
   font-size: 2rem;
   font-weight: 700;
 `
+
 export const Form = styled.div`
   align-items: center;
   display: flex;
 `
-export const MainInput = styled.input`
+
+export const Input = styled.input`
   padding: 1rem 4rem;
   border-radius: 1rem 0 0 1rem;
   background-color: ${colors.grey900};
@@ -56,6 +66,7 @@ export const MainInput = styled.input`
   margin-bottom: 2rem;
   font-size: 1.2rem;
 `
+
 export const ClearButton = styled.button`
   width: 54px;
   height: 54px;
@@ -73,6 +84,7 @@ export const ClearButton = styled.button`
     cursor: pointer;
   }
 `
+
 export const SearchButton = styled.button`
   width: 54px;
   height: 54px;
@@ -92,12 +104,14 @@ export const SearchButton = styled.button`
     cursor: pointer;
   }
 `
+
 export const ContainerDetails = styled.div`
   align-items: center;
   justify-content: center;
   display: flex;
 `
-export const Content = styled.div`
+
+export const ContentInfo = styled.div`
   width: 700px;
   height: 500px;
   background-color: ${colors.grey900};
@@ -108,30 +122,35 @@ export const Content = styled.div`
   flex-direction: column;
   justify-content: center;
 `
-export const ContentImage = styled.img`
+
+export const UserImage = styled.img`
   width: 200px;
   height: 200px;
   border-radius: 50%;
   border: 4px solid ${colors.blue500};
 `
-export const ContentText = styled.h1`
+
+export const UserText = styled.h1`
   color: ${colors.white500};
   font-size: 30px;
   font-weight: 700;
   margin-top: 2rem;
 `
-export const ContentBio = styled.p`
+
+export const UserBio = styled.p`
   color: ${colors.white500};
   font-size: 20px;
   font-weight: 700;
   margin-top: 2rem;
 `
+
 export const ContentFollowers = styled.div`
   color: ${colors.white500};
   font-size: 20px;
   font-weight: 700;
   margin-top: 2rem;
 `
+
 export const ContainerHorizontal = styled.div`
   width: 100%;
   height: 80px;
@@ -140,7 +159,8 @@ export const ContainerHorizontal = styled.div`
   align-items: center;
   justify-content: space-evenly;
 `
-export const ContentNumber = styled.div`
+
+export const ContentInfoNumber = styled.div`
   width: 100px;
   height: 50px;
   display: flex;
@@ -148,15 +168,39 @@ export const ContentNumber = styled.div`
   justify-content: center;
   flex-direction: column;
 `
-export const TextDetails = styled.h1`
+
+export const TextInfoDetails = styled.h1`
   font-size: 1.3rem;
   text-align: center;
   color: ${colors.white500};
   margin: 0;
 `
-export const NumberDetails = styled.h2`
+
+export const NumberInfoDetails = styled.h2`
   font-size: 0.8rem;
   text-align: center;
   color: ${colors.white500};
   margin: 0;
+`
+
+export const EmptyThumbnail = styled.div`
+  margin-bottom: 1rem;
+  max-height: 11rem;
+  max-width: 10rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+`
+
+export const UserNotFundImage = styled.img`
+  height: 100%;
+  width: 100%;
+`
+
+export const EmptyMessage = styled.p`
+  font-size: 1rem;
+  font-weight: 600;
+  color: ${colors.white500};
 `

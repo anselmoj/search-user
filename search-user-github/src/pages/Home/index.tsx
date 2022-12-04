@@ -4,25 +4,29 @@ import {
   SearchButton,
   Container,
   ContainerApp,
-  Content,
-  ContentBio,
-  ContentImage,
-  ContentText,
+  ContentInfo,
+  UserBio,
+  UserImage,
+  UserText,
   Form,
   GeneralContainer,
   ContentHeader,
-  MainInput,
+  Input,
   TextHeader,
   TitleHeader,
   ContainerDetails,
-  ContentNumber,
+  ContentInfoNumber,
   ContainerHorizontal,
-  TextDetails,
-  NumberDetails,
+  TextInfoDetails,
+  NumberInfoDetails,
   ClearButton,
+  UserNotFundImage,
+  EmptyThumbnail,
+  EmptyMessage,
 } from './styles'
 import ComponentIsVisible from '../../components/utils/IsVisible'
 import httpClient from '../../services/httpClient'
+import userNotFound from '../../assets/utils/not-found-cat.svg'
 
 interface IUserProps {
   name: string
@@ -31,7 +35,6 @@ interface IUserProps {
   followers: number
   following: number
   public_repos: number
-  repos_url: string
 }
 
 type GitHubResponse = {
@@ -41,7 +44,6 @@ type GitHubResponse = {
   followers: number
   following: number
   public_repos: number
-  repos_url: string
 }
 
 function Home() {
@@ -57,20 +59,7 @@ function Home() {
           setError(true)
         } else {
           setUser(res.data)
-          handleRepos(res.data.repos_url)
         }
-      })
-      .catch((err) => {
-        setError(true)
-        return err
-      })
-  }
-
-  const handleRepos = (urlRepos: string) => {
-    httpClient
-      .get<GitHubResponse>(`${urlRepos}`)
-      .then((res) => {
-        console.log('res', res)
       })
       .catch((err) => {
         setError(true)
@@ -93,7 +82,7 @@ function Home() {
           </TitleHeader>
           <ContentHeader>
             <Form>
-              <MainInput
+              <Input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 type="text"
@@ -110,51 +99,35 @@ function Home() {
 
           <ComponentIsVisible when={!!user?.name}>
             <ContainerDetails>
-              <Content>
-                <ContentImage src={user?.avatar_url} />
-                <ContentText>{user?.name}</ContentText>
-                <ContentBio>{user?.bio}</ContentBio>
+              <ContentInfo>
+                <UserImage src={user?.avatar_url} />
+                <UserText>{user?.name}</UserText>
+                <UserBio>{user?.bio}</UserBio>
                 <ContainerHorizontal>
-                  <ContentNumber>
-                    <TextDetails>{user?.public_repos}</TextDetails>
-                    <NumberDetails>Repositórios</NumberDetails>
-                  </ContentNumber>
+                  <ContentInfoNumber>
+                    <TextInfoDetails>{user?.public_repos}</TextInfoDetails>
+                    <NumberInfoDetails>Repositórios</NumberInfoDetails>
+                  </ContentInfoNumber>
 
-                  <ContentNumber>
-                    <TextDetails>{user?.followers}</TextDetails>
-                    <NumberDetails>Seguidores</NumberDetails>
-                  </ContentNumber>
+                  <ContentInfoNumber>
+                    <TextInfoDetails>{user?.followers}</TextInfoDetails>
+                    <NumberInfoDetails>Seguidores</NumberInfoDetails>
+                  </ContentInfoNumber>
 
-                  <ContentNumber>
-                    <TextDetails>{user?.following}</TextDetails>
-                    <NumberDetails>Seguindo</NumberDetails>
-                  </ContentNumber>
+                  <ContentInfoNumber>
+                    <TextInfoDetails>{user?.following}</TextInfoDetails>
+                    <NumberInfoDetails>Seguindo</NumberInfoDetails>
+                  </ContentInfoNumber>
                 </ContainerHorizontal>
-
-                <ContainerHorizontal>
-                  <ContentNumber>
-                    <TextDetails>{user?.public_repos}</TextDetails>
-                    <NumberDetails>Repositórios</NumberDetails>
-                  </ContentNumber>
-
-                  <ContentNumber>
-                    <TextDetails>{user?.followers}</TextDetails>
-                    <NumberDetails>Seguidores</NumberDetails>
-                  </ContentNumber>
-
-                  <ContentNumber>
-                    <TextDetails>{user?.following}</TextDetails>
-                    <NumberDetails>Seguindo</NumberDetails>
-                  </ContentNumber>
-                </ContainerHorizontal>
-              </Content>
+              </ContentInfo>
             </ContainerDetails>
           </ComponentIsVisible>
 
           <ComponentIsVisible when={!!error}>
-            <ContainerHorizontal>
-              <ContentText>Perfil não encontrado</ContentText>
-            </ContainerHorizontal>
+            <EmptyThumbnail>
+              <UserNotFundImage src={userNotFound} />
+            </EmptyThumbnail>
+            <EmptyMessage>Perfil não encontrado</EmptyMessage>
           </ComponentIsVisible>
         </Container>
       </ContainerApp>
