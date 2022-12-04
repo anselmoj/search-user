@@ -65,6 +65,10 @@ export const Input = styled.input`
   font-weight: 700;
   margin-bottom: 2rem;
   font-size: 1.2rem;
+
+  #placeholder-text {
+    padding: 10px;
+  }
 `
 
 export const ClearButton = styled.button`
@@ -105,13 +109,13 @@ export const SearchButton = styled.button`
   }
 `
 
-export const ContainerDetails = styled.div`
+export const ContainerInfo = styled.div`
   align-items: center;
   justify-content: center;
   display: flex;
 `
 
-export const ContentInfo = styled.div`
+export const ContentDetails = styled.div`
   width: 700px;
   height: 500px;
   background-color: ${colors.grey900};
@@ -169,14 +173,14 @@ export const ContentInfoNumber = styled.div`
   flex-direction: column;
 `
 
-export const TextInfoDetails = styled.h1`
+export const NumberInfo = styled.h1`
   font-size: 1.3rem;
   text-align: center;
   color: ${colors.white500};
   margin: 0;
 `
 
-export const NumberInfoDetails = styled.h2`
+export const TextInfoNumber = styled.h2`
   font-size: 0.8rem;
   text-align: center;
   color: ${colors.white500};

@@ -4,7 +4,7 @@ import {
   SearchButton,
   Container,
   ContainerApp,
-  ContentInfo,
+  ContentDetails,
   UserBio,
   UserImage,
   UserText,
@@ -14,11 +14,11 @@ import {
   Input,
   TextHeader,
   TitleHeader,
-  ContainerDetails,
+  ContainerInfo,
   ContentInfoNumber,
   ContainerHorizontal,
-  TextInfoDetails,
-  NumberInfoDetails,
+  NumberInfo,
+  TextInfoNumber,
   ClearButton,
   UserNotFundImage,
   EmptyThumbnail,
@@ -52,6 +52,7 @@ function Home() {
   const [error, setError] = useState<boolean>(false)
 
   const handleSearch = () => {
+    setUser(null)
     httpClient
       .get<GitHubResponse>(`${search}`)
       .then((res) => {
@@ -73,6 +74,12 @@ function Home() {
     setError(false)
   }
 
+  const handleKeyPress = (e: any) => {
+    if (e.key === 'Enter') {
+      handleSearch()
+    }
+  }
+
   return (
     <GeneralContainer>
       <ContainerApp>
@@ -87,6 +94,7 @@ function Home() {
                 onChange={(e) => setSearch(e.target.value)}
                 type="text"
                 placeholder="Digite um usuário"
+                onKeyPress={handleKeyPress}
               />
               <ClearButton onClick={handleClear}>
                 <FiX size={15} />
@@ -98,29 +106,29 @@ function Home() {
           </ContentHeader>
 
           <ComponentIsVisible when={!!user?.name}>
-            <ContainerDetails>
-              <ContentInfo>
+            <ContainerInfo>
+              <ContentDetails>
                 <UserImage src={user?.avatar_url} />
                 <UserText>{user?.name}</UserText>
                 <UserBio>{user?.bio}</UserBio>
                 <ContainerHorizontal>
                   <ContentInfoNumber>
-                    <TextInfoDetails>{user?.public_repos}</TextInfoDetails>
-                    <NumberInfoDetails>Repositórios</NumberInfoDetails>
+                    <NumberInfo>{user?.public_repos}</NumberInfo>
+                    <TextInfoNumber>Repositórios</TextInfoNumber>
                   </ContentInfoNumber>
 
                   <ContentInfoNumber>
-                    <TextInfoDetails>{user?.followers}</TextInfoDetails>
-                    <NumberInfoDetails>Seguidores</NumberInfoDetails>
+                    <NumberInfo>{user?.followers}</NumberInfo>
+                    <TextInfoNumber>Seguidores</TextInfoNumber>
                   </ContentInfoNumber>
 
                   <ContentInfoNumber>
-                    <TextInfoDetails>{user?.following}</TextInfoDetails>
-                    <NumberInfoDetails>Seguindo</NumberInfoDetails>
+                    <NumberInfo>{user?.following}</NumberInfo>
+                    <TextInfoNumber>Seguindo</TextInfoNumber>
                   </ContentInfoNumber>
                 </ContainerHorizontal>
-              </ContentInfo>
-            </ContainerDetails>
+              </ContentDetails>
+            </ContainerInfo>
           </ComponentIsVisible>
 
           <ComponentIsVisible when={!!error}>
