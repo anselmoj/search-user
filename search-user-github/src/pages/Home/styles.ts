@@ -113,9 +113,6 @@ export const ContainerInfo = styled.div`
   align-items: center;
   justify-content: center;
   display: flex;
-`
-
-export const ContentDetails = styled.div`
   width: 700px;
   height: 500px;
   background-color: ${colors.grey900};
@@ -155,7 +152,7 @@ export const ContentFollowers = styled.div`
   margin-top: 2rem;
 `
 
-export const ContainerHorizontal = styled.div`
+export const ContainerStats = styled.div`
   width: 100%;
   height: 80px;
   padding: 0 1rem;
@@ -164,7 +161,7 @@ export const ContainerHorizontal = styled.div`
   justify-content: space-evenly;
 `
 
-export const ContentInfoNumber = styled.div`
+export const ContentStats = styled.div`
   width: 100px;
   height: 50px;
   display: flex;
@@ -173,14 +170,14 @@ export const ContentInfoNumber = styled.div`
   flex-direction: column;
 `
 
-export const NumberInfo = styled.h1`
+export const NumberStats = styled.h1`
   font-size: 1.3rem;
   text-align: center;
   color: ${colors.white500};
   margin: 0;
 `
 
-export const TextInfoNumber = styled.h2`
+export const TextStats = styled.h2`
   font-size: 0.8rem;
   text-align: center;
   color: ${colors.white500};

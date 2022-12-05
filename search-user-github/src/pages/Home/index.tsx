@@ -4,7 +4,6 @@ import {
   SearchButton,
   Container,
   ContainerApp,
-  ContentDetails,
   UserBio,
   UserImage,
   UserText,
@@ -15,10 +14,10 @@ import {
   TextHeader,
   TitleHeader,
   ContainerInfo,
-  ContentInfoNumber,
-  ContainerHorizontal,
-  NumberInfo,
-  TextInfoNumber,
+  ContainerStats,
+  ContentStats,
+  NumberStats,
+  TextStats,
   ClearButton,
   UserNotFundImage,
   EmptyThumbnail,
@@ -107,27 +106,25 @@ function Home() {
 
           <ComponentIsVisible when={!!user?.name}>
             <ContainerInfo>
-              <ContentDetails>
-                <UserImage src={user?.avatar_url} />
-                <UserText>{user?.name}</UserText>
-                <UserBio>{user?.bio}</UserBio>
-                <ContainerHorizontal>
-                  <ContentInfoNumber>
-                    <NumberInfo>{user?.public_repos}</NumberInfo>
-                    <TextInfoNumber>Repositórios</TextInfoNumber>
-                  </ContentInfoNumber>
+              <UserImage src={user?.avatar_url} />
+              <UserText>{user?.name}</UserText>
+              <UserBio>{user?.bio}</UserBio>
+              <ContainerStats>
+                <ContentStats>
+                  <NumberStats>{user?.public_repos}</NumberStats>
+                  <TextStats>Repositórios</TextStats>
+                </ContentStats>
 
-                  <ContentInfoNumber>
-                    <NumberInfo>{user?.followers}</NumberInfo>
-                    <TextInfoNumber>Seguidores</TextInfoNumber>
-                  </ContentInfoNumber>
+                <ContentStats>
+                  <NumberStats>{user?.followers}</NumberStats>
+                  <TextStats>Seguidores</TextStats>
+                </ContentStats>
 
-                  <ContentInfoNumber>
-                    <NumberInfo>{user?.following}</NumberInfo>
-                    <TextInfoNumber>Seguindo</TextInfoNumber>
-                  </ContentInfoNumber>
-                </ContainerHorizontal>
-              </ContentDetails>
+                <ContentStats>
+                  <NumberStats>{user?.following}</NumberStats>
+                  <TextStats>Seguindo</TextStats>
+                </ContentStats>
+              </ContainerStats>
             </ContainerInfo>
           </ComponentIsVisible>
 
