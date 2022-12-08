@@ -1,5 +1,5 @@
 import { FiSearch, FiX } from 'react-icons/fi'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import {
   SearchButton,
   Container,
@@ -26,31 +26,45 @@ import {
 import ComponentIsVisible from '../../components/utils/IsVisible'
 import httpClient from '../../services/httpClient'
 import userNotFound from '../../assets/utils/not-found-cat.svg'
+import { useNavigate } from 'react-router-dom'
+import pages from '../../components/constants/pages'
 
-interface IUserProps {
+export interface IUserProps {
   name: string
   bio: string
   avatar_url: string
   followers: number
   following: number
   public_repos: number
+  login: string
 }
 
-type GitHubResponse = {
+export type GitHubResponse = {
   name: string
   bio: string
   avatar_url: string
   followers: number
   following: number
   public_repos: number
+  full_name: string
+  description: string
+  login: string
 }
 
 function Home() {
   const [search, setSearch] = useState<string>('')
   const [user, setUser] = useState<IUserProps | null>(null)
   const [error, setError] = useState<boolean>(false)
+  const navigate = useNavigate()
 
-  const handleSearch = () => {
+  const handleNavigateRepos = useCallback(
+    (id: string) => {
+      navigate(pages.repos(id))
+    },
+    [navigate],
+  )
+
+  const handleSearchButton = () => {
     setUser(null)
     httpClient
       .get<GitHubResponse>(`${search}`)
@@ -67,7 +81,7 @@ function Home() {
       })
   }
 
-  const handleClear = () => {
+  const handleClearButton = () => {
     setSearch('')
     setUser(null)
     setError(false)
@@ -75,7 +89,7 @@ function Home() {
 
   const handleKeyPress = (e: any) => {
     if (e.key === 'Enter') {
-      handleSearch()
+      handleSearchButton()
     }
   }
 
@@ -95,10 +109,10 @@ function Home() {
                 placeholder="Digite um usuário"
                 onKeyPress={handleKeyPress}
               />
-              <ClearButton onClick={handleClear}>
+              <ClearButton onClick={handleClearButton}>
                 <FiX size={15} />
               </ClearButton>
-              <SearchButton onClick={handleSearch}>
+              <SearchButton onClick={handleSearchButton}>
                 <FiSearch size={15} />
               </SearchButton>
             </Form>
@@ -110,7 +124,9 @@ function Home() {
               <UserText>{user?.name}</UserText>
               <UserBio>{user?.bio}</UserBio>
               <ContainerStats>
-                <ContentStats>
+                <ContentStats
+                  onClick={() => handleNavigateRepos(user?.login as string)}
+                >
                   <NumberStats>{user?.public_repos}</NumberStats>
                   <TextStats>Repositórios</TextStats>
                 </ContentStats>

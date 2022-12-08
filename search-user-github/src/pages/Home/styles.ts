@@ -4,17 +4,15 @@ import colors from '../../styles/colors'
 export const GeneralContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
 `
 
 export const ContainerApp = styled.div`
-  width: 100%;
   height: 100vh;
-  background-color: ${colors.grey200};
+  width: 100%;
   display: flex;
   align-items: center;
   padding: 3rem;
-  justify-content: center;
 `
 
 export const Container = styled.div`
@@ -168,6 +166,13 @@ export const ContentStats = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  &:hover {
+    cursor: pointer;
+    background: ${colors.grey200};
+    transition: 0.4s ease;
+    border-radius: 0.4rem;
+  }
 `
 
 export const NumberStats = styled.h1`

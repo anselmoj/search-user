@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
+import colors from './colors'
 
 export const GlobalStyle = createGlobalStyle`
 * {
@@ -8,40 +9,23 @@ export const GlobalStyle = createGlobalStyle`
   box-sizing: border-box;
 }
 
-html {
-    @media screen and (max-width: 1080px) {
-      font-size: 93.75%;
-    }
+body{
+    background: ${colors.grey200};
+ 
+}
 
-    @media screen and (max-width: 720px) {
-      font-size: 87.5%;
-    }
-
-    @media (min-width: 900px) {
-      ::-webkit-scrollbar {
-        height: 0.5rem;
-        width: 0.4rem;
-      }
-
-      ::-webkit-scrollbar-button {
-        height: 0;
-        width: 0;
-      }
-
-      ::-webkit-scrollbar-track {
-        height: 0.5rem;
-      }
-
-      ::-webkit-scrollbar-thumb {
-        height: 0.5rem;
-        width: 0.4rem;
-        border-radius: 0 0 0.25rem 0.25rem;
-      }
-    }
-  }
 
 body, input, textarea, button {
     font: 400 1rem Poppins, sans-serif;
   }
+
+
+html, body, #root {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+}
 
 `
