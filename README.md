@@ -13,3 +13,9 @@ git clone git@github.com:RacSystems/search-user.git
 git pull origin master
 yarn 
 ```
+
+## 🚀 **Start na aplicação**
+Para iniciar o projeto em ambiente de desenvolvimento basta rodar o comando yarn dev
+```
+yarn dev
+```
