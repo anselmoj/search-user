@@ -3,7 +3,7 @@ import { Content, Details, Image, Text } from './styles'
 
 interface ICardProps {
   username: string
-  description: string
+  description?: string
   image: string
 }
 

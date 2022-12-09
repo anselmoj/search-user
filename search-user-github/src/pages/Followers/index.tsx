@@ -6,27 +6,23 @@ import pages from '../../components/constants/pages'
 import httpClient from '../../services/httpClient'
 import { ContainerBackButton, Header, Section, Title } from './styles'
 
-interface IUserReposProps {
+interface IFollowersProps {
   id: string
-  full_name: string
-  description: string
-  owner: {
-    avatar_url: string
-    login: string
-  }
+  login: string
+  avatar_url: string
 }
 
-function Repos() {
+function Follower() {
   const { user } = useParams()
-  const [repos, setRepos] = useState<IUserReposProps[]>([])
+  const [followers, setFollowers] = useState<IFollowersProps[]>([])
   const navigate = useNavigate()
 
   useEffect(() => {
     const data = () => {
       httpClient
-        .get<IUserReposProps[]>(`${user}/repos`)
+        .get<IFollowersProps[]>(`${user}/followers`)
         .then((res) => {
-          setRepos(res.data)
+          setFollowers(res.data)
         })
         .catch((e) => console.log(e))
     }
@@ -44,19 +40,18 @@ function Repos() {
           <FiChevronsLeft size={26} />
         </ContainerBackButton>
 
-        <Title>Repositórios</Title>
+        <Title>Seguidores</Title>
       </Header>
-      {repos &&
-        repos.map((repo) => (
+      {followers &&
+        followers.map((follow) => (
           <Card
-            key={repo.id}
-            username={repo.full_name}
-            description={repo.description}
-            image={repo.owner.avatar_url}
+            key={follow.id}
+            username={follow.login}
+            image={follow.avatar_url}
           />
         ))}
     </Section>
   )
 }
 
-export default Repos
+export default Follower

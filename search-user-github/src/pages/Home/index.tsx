@@ -28,18 +28,10 @@ import httpClient from '../../services/httpClient'
 import userNotFound from '../../assets/utils/not-found-cat.svg'
 import { useNavigate } from 'react-router-dom'
 import pages from '../../components/constants/pages'
+import { IProfile } from '../../store/slices/home'
+// import profileSelectors from '../../store/slices/home/selectors'
 
-export interface IUserProps {
-  name: string
-  bio: string
-  avatar_url: string
-  followers: number
-  following: number
-  public_repos: number
-  login: string
-}
-
-export type GitHubResponse = {
+type GitHubResponse = {
   name: string
   bio: string
   avatar_url: string
@@ -53,13 +45,28 @@ export type GitHubResponse = {
 
 function Home() {
   const [search, setSearch] = useState<string>('')
-  const [user, setUser] = useState<IUserProps | null>(null)
+  const [user, setUser] = useState<IProfile | null>(null)
   const [error, setError] = useState<boolean>(false)
   const navigate = useNavigate()
+  // const profile = useReduxSelector(profileSelectors.getAllList)
 
   const handleNavigateRepos = useCallback(
     (id: string) => {
       navigate(pages.repos(id))
+    },
+    [navigate],
+  )
+
+  const handleNavigateFollowers = useCallback(
+    (id: string) => {
+      navigate(pages.follower(id))
+    },
+    [navigate],
+  )
+
+  const handleNavigateFollowing = useCallback(
+    (id: string) => {
+      navigate(pages.following(id))
     },
     [navigate],
   )
@@ -106,7 +113,7 @@ function Home() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 type="text"
-                placeholder="Digite um usuário"
+                placeholder="Digite um perfil"
                 onKeyPress={handleKeyPress}
               />
               <ClearButton onClick={handleClearButton}>
@@ -131,12 +138,16 @@ function Home() {
                   <TextStats>Repositórios</TextStats>
                 </ContentStats>
 
-                <ContentStats>
+                <ContentStats
+                  onClick={() => handleNavigateFollowers(user?.login as string)}
+                >
                   <NumberStats>{user?.followers}</NumberStats>
                   <TextStats>Seguidores</TextStats>
                 </ContentStats>
 
-                <ContentStats>
+                <ContentStats
+                  onClick={() => handleNavigateFollowing(user?.login as string)}
+                >
                   <NumberStats>{user?.following}</NumberStats>
                   <TextStats>Seguindo</TextStats>
                 </ContentStats>

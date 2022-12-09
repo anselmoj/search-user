@@ -10,7 +10,7 @@ export const Content = styled.div`
   color: ${colors.white500};
   padding: 0.5rem;
   align-items: center;
-  margin: 2rem 1rem;
+  margin: 1rem 1rem;
 `
 
 export const Details = styled.div`
