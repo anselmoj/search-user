@@ -18,6 +18,16 @@ export const Header = styled.div`
   align-items: center;
 `
 
+export const Content = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+`
+
+export const ContentList = styled.div`
+  width: 100%;
+`
+
 export const ContainerBackButton = styled.button`
   align-items: center;
   background-color: transparent;

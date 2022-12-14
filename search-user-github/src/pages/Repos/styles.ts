@@ -13,6 +13,16 @@ export const Section = styled.div`
   }
 `
 
+export const Content = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+`
+
+export const ContentList = styled.div`
+  width: 100%;
+`
+
 export const Header = styled.div`
   display: flex;
   align-items: center;

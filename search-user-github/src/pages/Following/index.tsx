@@ -1,38 +1,53 @@
-import { useState, useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { FiChevronsLeft } from 'react-icons/fi'
 import { useNavigate, useParams } from 'react-router-dom'
 import Card from '../../components/Card'
 import pages from '../../components/constants/pages'
-import httpClient from '../../services/httpClient'
-import { ContainerBackButton, Header, Section, Title } from './styles'
-
-interface IFollowingProps {
-  id: string
-  login: string
-  avatar_url: string
-  html_url: string
-}
+import ComponentIsVisible from '../../components/utils/IsVisible'
+import Loading from '../../components/utils/Loading'
+import helpers from '../../helpers'
+import { useReduxDispatch } from '../../hooks/useReduxDispatch'
+import { useReduxSelector } from '../../hooks/useReduxSelector'
+import { followingActions } from '../../store/slices/following'
+import followingSelectors from '../../store/slices/following/selectors'
+import {
+  ContainerBackButton,
+  Content,
+  ContentList,
+  Header,
+  Section,
+  Title,
+} from './styles'
 
 function Following() {
-  const { user } = useParams()
-  const [following, setFollowing] = useState<IFollowingProps[]>([])
+  const reduxDispatch = useReduxDispatch()
+  const params = useParams()
   const navigate = useNavigate()
-
-  useEffect(() => {
-    const data = () => {
-      httpClient
-        .get<IFollowingProps[]>(`${user}/following`)
-        .then((res) => {
-          setFollowing(res.data)
-        })
-        .catch((e) => console.log(e))
-    }
-    data()
-  }, [user])
+  const following = useReduxSelector(followingSelectors.getAllFollowing)
+  const isLoading = useReduxSelector(followingSelectors.getAllIsLoading)
 
   const handleGoBack = () => {
     navigate(pages.home)
   }
+
+  const handleLoadFollowing = useCallback(() => {
+    reduxDispatch(
+      followingActions.getAllFollowingRequest({
+        data: {
+          login: params.user as string,
+        },
+        functions: {
+          error(err: any) {
+            helpers.errorHandling(err)
+          },
+        },
+      }),
+    )
+  }, [params.user, reduxDispatch])
+
+  useEffect(() => {
+    handleLoadFollowing()
+  }, [handleLoadFollowing])
 
   return (
     <Section>
@@ -40,18 +55,27 @@ function Following() {
         <ContainerBackButton onClick={handleGoBack}>
           <FiChevronsLeft size={26} />
         </ContainerBackButton>
-
         <Title>Seguindo</Title>
       </Header>
-      {following &&
-        following.map((follow) => (
-          <Card
-            key={follow.id}
-            username={follow.login}
-            image={follow.avatar_url}
-            route={follow.html_url}
-          />
-        ))}
+
+      <Content>
+        <ComponentIsVisible when={!isLoading}>
+          <ContentList>
+            {following.map((follow) => (
+              <Card
+                key={follow.id}
+                username={follow.login}
+                image={follow.avatar_url}
+                route={follow.html_url}
+              />
+            ))}
+          </ContentList>
+        </ComponentIsVisible>
+
+        <ComponentIsVisible when={isLoading}>
+          <Loading />
+        </ComponentIsVisible>
+      </Content>
     </Section>
   )
 }
