@@ -12,22 +12,24 @@ export interface IProfile {
 }
 
 export interface IProfileData {
-  getAll: {
+  getUser: {
     config: {
+      isError: boolean
       isLoading: boolean
       errorMessage: string
     }
-    list: IProfile[]
+    values: IProfile | null
   }
 }
 
 const initialState: IProfileData = {
-  getAll: {
+  getUser: {
     config: {
+      isError: false,
       isLoading: false,
       errorMessage: '',
     },
-    list: [],
+    values: null,
   },
 }
 

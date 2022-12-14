@@ -10,6 +10,7 @@ interface IFollowingProps {
   id: string
   login: string
   avatar_url: string
+  html_url: string
 }
 
 function Following() {
@@ -48,6 +49,7 @@ function Following() {
             key={follow.id}
             username={follow.login}
             image={follow.avatar_url}
+            route={follow.html_url}
           />
         ))}
     </Section>

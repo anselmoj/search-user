@@ -1,16 +1,13 @@
-import { FiSearch, FiX } from 'react-icons/fi'
-import { useCallback, useState } from 'react'
+/* eslint-disable no-undef */
+import { useCallback, useRef } from 'react'
 import {
-  SearchButton,
   Container,
   ContainerApp,
   UserBio,
   UserImage,
   UserText,
-  Form,
   GeneralContainer,
   ContentHeader,
-  Input,
   TextHeader,
   TitleHeader,
   ContainerInfo,
@@ -18,37 +15,28 @@ import {
   ContentStats,
   NumberStats,
   TextStats,
-  ClearButton,
-  UserNotFundImage,
   EmptyThumbnail,
-  EmptyMessage,
 } from './styles'
 import ComponentIsVisible from '../../components/utils/IsVisible'
-import httpClient from '../../services/httpClient'
-import userNotFound from '../../assets/utils/not-found-cat.svg'
 import { useNavigate } from 'react-router-dom'
 import pages from '../../components/constants/pages'
-import { IProfile } from '../../store/slices/home'
-// import profileSelectors from '../../store/slices/home/selectors'
+import { profileActions } from '../../store/slices/home'
+import { useDispatch } from 'react-redux'
+import helpers from '../../helpers'
+import profileSelectors from '../../store/slices/home/selectors'
+import { useReduxSelector } from '../../hooks/useReduxSelector'
+import ProfileFilter, { IProfileFilterData } from './Filter'
+import { FormikProps } from 'formik'
+import Loading from '../../components/utils/Loading'
+import ComponentError from '../../components/utils/Error/List'
 
-type GitHubResponse = {
-  name: string
-  bio: string
-  avatar_url: string
-  followers: number
-  following: number
-  public_repos: number
-  full_name: string
-  description: string
-  login: string
-}
-
-function Home() {
-  const [search, setSearch] = useState<string>('')
-  const [user, setUser] = useState<IProfile | null>(null)
-  const [error, setError] = useState<boolean>(false)
+const Home = (): JSX.Element => {
+  const reduxDispatch = useDispatch()
   const navigate = useNavigate()
-  // const profile = useReduxSelector(profileSelectors.getAllList)
+  const profile = useReduxSelector(profileSelectors.getUserValues)
+  const isLoading = useReduxSelector(profileSelectors.getUserIsLoading)
+  // const isError = useReduxSelector(profileSelectors.getUserIsError)
+  const profileFilterRef = useRef<FormikProps<IProfileFilterData>>(null)
 
   const handleNavigateRepos = useCallback(
     (id: string) => {
@@ -71,34 +59,39 @@ function Home() {
     [navigate],
   )
 
-  const handleSearchButton = () => {
-    setUser(null)
-    httpClient
-      .get<GitHubResponse>(`${search}`)
-      .then((res) => {
-        if (!res.data.name) {
-          setError(true)
-        } else {
-          setUser(res.data)
-        }
-      })
-      .catch((err) => {
-        setError(true)
-        return err
-      })
-  }
+  const handleFilter = useCallback(
+    (data: IProfileFilterData) => {
+      reduxDispatch(
+        profileActions.getUserRequest({
+          data: {
+            search: data.search,
+          },
+          functions: {
+            error(err: any) {
+              helpers.errorHandling(err)
+            },
+          },
+        }),
+      )
+    },
+    [reduxDispatch],
+  )
 
-  const handleClearButton = () => {
-    setSearch('')
-    setUser(null)
-    setError(false)
-  }
-
-  const handleKeyPress = (e: any) => {
-    if (e.key === 'Enter') {
-      handleSearchButton()
-    }
-  }
+  const handleClearFilter = useCallback(() => {
+    profileFilterRef.current?.resetForm()
+    reduxDispatch(
+      profileActions.getUserRequest({
+        data: {
+          search: '',
+        },
+        functions: {
+          error(err: any) {
+            helpers.errorHandling(err)
+          },
+        },
+      }),
+    )
+  }, [reduxDispatch])
 
   return (
     <GeneralContainer>
@@ -108,58 +101,58 @@ function Home() {
             <TextHeader>GitHub Profile</TextHeader>
           </TitleHeader>
           <ContentHeader>
-            <Form>
-              <Input
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                type="text"
-                placeholder="Digite um perfil"
-                onKeyPress={handleKeyPress}
-              />
-              <ClearButton onClick={handleClearButton}>
-                <FiX size={15} />
-              </ClearButton>
-              <SearchButton onClick={handleSearchButton}>
-                <FiSearch size={15} />
-              </SearchButton>
-            </Form>
+            <ProfileFilter
+              onClear={handleClearFilter}
+              onSubmit={handleFilter}
+              ref={profileFilterRef}
+            />
           </ContentHeader>
+          <ComponentIsVisible when={!isLoading}>
+            <ComponentIsVisible when={!!profile?.name}>
+              <ContainerInfo>
+                <UserImage src={profile?.avatar_url} />
+                <UserText>{profile?.name}</UserText>
+                <UserBio>{profile?.bio}</UserBio>
+                <ContainerStats>
+                  <ContentStats
+                    onClick={() =>
+                      handleNavigateRepos(profile?.login as string)
+                    }
+                  >
+                    <NumberStats>{profile?.public_repos}</NumberStats>
+                    <TextStats>Repositórios</TextStats>
+                  </ContentStats>
 
-          <ComponentIsVisible when={!!user?.name}>
-            <ContainerInfo>
-              <UserImage src={user?.avatar_url} />
-              <UserText>{user?.name}</UserText>
-              <UserBio>{user?.bio}</UserBio>
-              <ContainerStats>
-                <ContentStats
-                  onClick={() => handleNavigateRepos(user?.login as string)}
-                >
-                  <NumberStats>{user?.public_repos}</NumberStats>
-                  <TextStats>Repositórios</TextStats>
-                </ContentStats>
+                  <ContentStats
+                    onClick={() =>
+                      handleNavigateFollowers(profile?.login as string)
+                    }
+                  >
+                    <NumberStats>{profile?.followers}</NumberStats>
+                    <TextStats>Seguidores</TextStats>
+                  </ContentStats>
 
-                <ContentStats
-                  onClick={() => handleNavigateFollowers(user?.login as string)}
-                >
-                  <NumberStats>{user?.followers}</NumberStats>
-                  <TextStats>Seguidores</TextStats>
-                </ContentStats>
-
-                <ContentStats
-                  onClick={() => handleNavigateFollowing(user?.login as string)}
-                >
-                  <NumberStats>{user?.following}</NumberStats>
-                  <TextStats>Seguindo</TextStats>
-                </ContentStats>
-              </ContainerStats>
-            </ContainerInfo>
+                  <ContentStats
+                    onClick={() =>
+                      handleNavigateFollowing(profile?.login as string)
+                    }
+                  >
+                    <NumberStats>{profile?.following}</NumberStats>
+                    <TextStats>Seguindo</TextStats>
+                  </ContentStats>
+                </ContainerStats>
+              </ContainerInfo>
+            </ComponentIsVisible>
           </ComponentIsVisible>
 
-          <ComponentIsVisible when={!!error}>
+          <ComponentIsVisible when={isLoading}>
+            <Loading />
+          </ComponentIsVisible>
+
+          <ComponentIsVisible when={!profile?.login}>
             <EmptyThumbnail>
-              <UserNotFundImage src={userNotFound} />
+              <ComponentError message="Perfil não encontrado" />
             </EmptyThumbnail>
-            <EmptyMessage>Perfil não encontrado</EmptyMessage>
           </ComponentIsVisible>
         </Container>
       </ContainerApp>

@@ -1,7 +1,11 @@
-import getAllList from './getAllList'
+import getUserIsError from './getUserIsError'
+import getUserIsLoading from './getUserIsLoading'
+import getUserValues from './getUserValues'
 
 const profileSelectors = {
-  getAllList,
+  getUserValues,
+  getUserIsLoading,
+  getUserIsError,
 }
 
 export default profileSelectors

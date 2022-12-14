@@ -14,7 +14,6 @@ const persistConfig = {
       ? 'github-search'
       : 'afecb6ad2083069a3c688ccb43b26a3e',
   storage,
-  whitelist: ['home'],
   timeout: 1,
 }
 

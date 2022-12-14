@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import colors from '../../styles/colors'
+import { Form } from 'formik'
 
 export const GeneralContainer = styled.div`
   display: flex;
@@ -45,7 +46,7 @@ export const TextHeader = styled.h1`
   font-weight: 700;
 `
 
-export const Form = styled.div`
+export const FormikForm = styled(Form)`
   align-items: center;
   display: flex;
 `
@@ -209,4 +210,5 @@ export const EmptyMessage = styled.p`
   font-size: 1rem;
   font-weight: 600;
   color: ${colors.white500};
+  width: 100%;
 `

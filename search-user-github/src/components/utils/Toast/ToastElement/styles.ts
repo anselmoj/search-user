@@ -12,7 +12,7 @@ const toastTypeVariations = {
     color: ${colors.white500};
   `,
   error: css`
-    background: ${(props) => props.theme.colors.red};
+    background: ${colors.red};
     color: ${colors.white500};
   `,
 }

@@ -6,4 +6,5 @@ export default {
   white500: '#FFF',
 
   blue500: '#4c66dd',
+  red: '#D05959',
 }
