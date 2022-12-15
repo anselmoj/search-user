@@ -15,7 +15,6 @@ import {
   ContentStats,
   NumberStats,
   TextStats,
-  EmptyThumbnail,
 } from './styles'
 import ComponentIsVisible from '../../components/utils/IsVisible'
 import { useNavigate } from 'react-router-dom'
@@ -28,14 +27,15 @@ import { useReduxSelector } from '../../hooks/useReduxSelector'
 import ProfileFilter, { IProfileFilterData } from './Filter'
 import { FormikProps } from 'formik'
 import Loading from '../../components/utils/Loading'
-import ComponentError from '../../components/utils/Error/List'
+import ComponentEmpty from '../../components/utils/Empty'
+import imageNotFound from '../../assets/utils/not-found-cat.svg'
 
 const Home = (): JSX.Element => {
   const reduxDispatch = useDispatch()
   const navigate = useNavigate()
   const profile = useReduxSelector(profileSelectors.getUserValues)
   const isLoading = useReduxSelector(profileSelectors.getUserIsLoading)
-  // const isError = useReduxSelector(profileSelectors.getUserIsError)
+  const isError = useReduxSelector(profileSelectors.getUserIsError)
   const profileFilterRef = useRef<FormikProps<IProfileFilterData>>(null)
 
   const handleNavigateRepos = useCallback(
@@ -108,7 +108,7 @@ const Home = (): JSX.Element => {
             />
           </ContentHeader>
           <ComponentIsVisible when={!isLoading}>
-            <ComponentIsVisible when={!!profile?.name}>
+            <ComponentIsVisible when={!!profile?.name && !isError}>
               <ContainerInfo>
                 <UserImage src={profile?.avatar_url} />
                 <UserText>{profile?.name}</UserText>
@@ -143,16 +143,16 @@ const Home = (): JSX.Element => {
                 </ContainerStats>
               </ContainerInfo>
             </ComponentIsVisible>
+
+            <ComponentEmpty
+              image={imageNotFound}
+              message="Perfil não encontrado"
+              show={!profile?.name && !isError}
+            />
           </ComponentIsVisible>
 
-          <ComponentIsVisible when={isLoading}>
+          <ComponentIsVisible when={isLoading && !isError}>
             <Loading />
-          </ComponentIsVisible>
-
-          <ComponentIsVisible when={!profile?.login}>
-            <EmptyThumbnail>
-              <ComponentError message="Perfil não encontrado" />
-            </EmptyThumbnail>
           </ComponentIsVisible>
         </Container>
       </ContainerApp>

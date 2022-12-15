@@ -3,6 +3,7 @@ import { FiChevronsLeft } from 'react-icons/fi'
 import { useNavigate, useParams } from 'react-router-dom'
 import Card from '../../components/Card'
 import pages from '../../components/constants/pages'
+import ComponentEmpty from '../../components/utils/Empty'
 import ComponentIsVisible from '../../components/utils/IsVisible'
 import Loading from '../../components/utils/Loading'
 import helpers from '../../helpers'
@@ -10,6 +11,7 @@ import { useReduxDispatch } from '../../hooks/useReduxDispatch'
 import { useReduxSelector } from '../../hooks/useReduxSelector'
 import { followingActions } from '../../store/slices/following'
 import followingSelectors from '../../store/slices/following/selectors'
+import followingNotFound from '../../assets/utils/not-data.svg'
 import {
   ContainerBackButton,
   Content,
@@ -69,6 +71,11 @@ function Following() {
                 route={follow.html_url}
               />
             ))}
+            <ComponentEmpty
+              image={followingNotFound}
+              message="Nenhum seguidor encontrado"
+              show={!following.length}
+            />
           </ContentList>
         </ComponentIsVisible>
 

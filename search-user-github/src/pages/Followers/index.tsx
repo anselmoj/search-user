@@ -3,6 +3,8 @@ import { FiChevronsLeft } from 'react-icons/fi'
 import { useNavigate, useParams } from 'react-router-dom'
 import Card from '../../components/Card'
 import pages from '../../components/constants/pages'
+import ComponentEmpty from '../../components/utils/Empty'
+import followerNotFound from '../../assets/utils/not-data.svg'
 import ComponentIsVisible from '../../components/utils/IsVisible'
 import Loading from '../../components/utils/Loading'
 import helpers from '../../helpers'
@@ -69,6 +71,11 @@ function Follower() {
                 route={follow.html_url}
               />
             ))}
+            <ComponentEmpty
+              image={followerNotFound}
+              message="Nenhum seguidor encontrado"
+              show={!followers.length}
+            />
           </ContentList>
         </ComponentIsVisible>
 

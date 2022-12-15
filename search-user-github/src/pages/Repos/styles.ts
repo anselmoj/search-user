@@ -48,3 +48,4 @@ export const Title = styled.h1`
   font-size: 20px;
   color: ${colors.white500};
 `
+export const EmptyThumbnail = styled.div``

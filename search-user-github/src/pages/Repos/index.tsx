@@ -4,6 +4,7 @@ import { FiChevronsLeft } from 'react-icons/fi'
 import { useNavigate, useParams } from 'react-router-dom'
 import Card from '../../components/Card'
 import pages from '../../components/constants/pages'
+import ComponentEmpty from '../../components/utils/Empty'
 import ComponentIsVisible from '../../components/utils/IsVisible'
 import Loading from '../../components/utils/Loading'
 import helpers from '../../helpers'
@@ -11,6 +12,7 @@ import { useReduxDispatch } from '../../hooks/useReduxDispatch'
 import { useReduxSelector } from '../../hooks/useReduxSelector'
 import { repoActions } from '../../store/slices/repos'
 import repoSelectors from '../../store/slices/repos/selectors'
+import repoNotFound from '../../assets/utils/not-data.svg'
 import {
   ContainerBackButton,
   Content,
@@ -71,6 +73,11 @@ const Repos = (): JSX.Element => {
                 route={repo.html_url}
               />
             ))}
+            <ComponentEmpty
+              image={repoNotFound}
+              message="Nenhum repositório encontrado"
+              show={!repos.length}
+            />
           </ContentList>
         </ComponentIsVisible>
 

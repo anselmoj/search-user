@@ -13,7 +13,7 @@ export interface IGetUserRequestAction {
 
 function getUserRequest(
   draft: Draft<IProfileData>,
-  action: PayloadAction<IGetUserRequestAction>,
+  _: PayloadAction<IGetUserRequestAction>,
 ) {
   draft.getUser.config.isLoading = true
   draft.getUser.values = null
