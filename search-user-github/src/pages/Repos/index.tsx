@@ -8,6 +8,7 @@ import ComponentEmpty from '../../components/utils/Empty'
 import ComponentIsVisible from '../../components/utils/IsVisible'
 import Loading from '../../components/utils/Loading'
 import helpers from '../../helpers'
+import { Helmet } from 'react-helmet'
 import { useReduxDispatch } from '../../hooks/useReduxDispatch'
 import { useReduxSelector } from '../../hooks/useReduxSelector'
 import { repoActions } from '../../store/slices/repos'
@@ -54,6 +55,7 @@ const Repos = (): JSX.Element => {
 
   return (
     <Section>
+      <Helmet title="Repositórios" />
       <Header>
         <ContainerBackButton onClick={handleGoBack}>
           <FiChevronsLeft size={26} />

@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import Card from '../../components/Card'
 import pages from '../../components/constants/pages'
 import ComponentEmpty from '../../components/utils/Empty'
-import followerNotFound from '../../assets/utils/not-data.svg'
+import followerNotFound from '../../assets/utils/user-not-found.svg'
 import ComponentIsVisible from '../../components/utils/IsVisible'
 import Loading from '../../components/utils/Loading'
 import helpers from '../../helpers'
@@ -20,6 +20,7 @@ import {
   Section,
   Title,
 } from './styles'
+import { Helmet } from 'react-helmet'
 
 function Follower() {
   const reduxDispatch = useReduxDispatch()
@@ -53,6 +54,7 @@ function Follower() {
 
   return (
     <Section>
+      <Helmet title="Seguidores" />
       <Header>
         <ContainerBackButton onClick={handleGoBack}>
           <FiChevronsLeft size={26} />

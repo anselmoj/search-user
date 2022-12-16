@@ -13,7 +13,6 @@ export const ContainerApp = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  padding: 3rem;
 `
 
 export const Container = styled.div`
@@ -25,6 +24,11 @@ export const Container = styled.div`
   padding: 4rem;
   background-color: ${colors.grey700};
   border-radius: 1.2rem;
+
+  @media screen and (max-width: 768px) {
+    position: relative;
+    width: calc(100vw - 1rem);
+  }
 `
 
 export const ContentHeader = styled.header`
@@ -44,6 +48,10 @@ export const TextHeader = styled.h1`
   color: ${colors.white500};
   font-size: 2rem;
   font-weight: 700;
+
+  @media screen and (max-width: 480px) {
+    font-size: 1.5rem;
+  }
 `
 
 export const FormikForm = styled(Form)`
@@ -65,8 +73,16 @@ export const Input = styled.input`
   margin-bottom: 2rem;
   font-size: 1.2rem;
 
-  #placeholder-text {
-    padding: 10px;
+  ::placeholder {
+    @media screen and (max-width: 320px) {
+      font-size: 0.4rem;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    position: relative;
+    height: 3rem;
+    width: 12rem;
   }
 `
 
@@ -85,6 +101,11 @@ export const ClearButton = styled.button`
   &:hover {
     transition: ease 0.3s;
     cursor: pointer;
+  }
+
+  @media screen and (max-width: 480px) {
+    height: 3rem;
+    width: 2rem;
   }
 `
 
@@ -106,6 +127,11 @@ export const SearchButton = styled.button`
     transition: ease 0.3s;
     cursor: pointer;
   }
+
+  @media screen and (max-width: 480px) {
+    height: 3rem;
+    width: 2rem;
+  }
 `
 
 export const ContainerInfo = styled.div`
@@ -121,6 +147,11 @@ export const ContainerInfo = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
+
+  @media screen and (max-width: 480px) {
+    position: relative;
+    width: calc(100vw - 4rem);
+  }
 `
 
 export const UserImage = styled.img`
@@ -174,6 +205,10 @@ export const ContentStats = styled.div`
     transition: 0.4s ease;
     border-radius: 0.4rem;
   }
+
+  @media screen and (max-width: 480px) {
+    position: relative;
+  }
 `
 
 export const NumberStats = styled.h1`
@@ -188,6 +223,11 @@ export const TextStats = styled.h2`
   text-align: center;
   color: ${colors.white500};
   margin: 0;
+
+  @media screen and (max-width: 480px) {
+    position: relative;
+    width: calc(100vw - 4rem);
+  }
 `
 
 export const EmptyThumbnail = styled.div`

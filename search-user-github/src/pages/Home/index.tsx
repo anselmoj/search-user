@@ -29,6 +29,7 @@ import { FormikProps } from 'formik'
 import Loading from '../../components/utils/Loading'
 import ComponentEmpty from '../../components/utils/Empty'
 import imageNotFound from '../../assets/utils/not-found-cat.svg'
+import { Helmet } from 'react-helmet'
 
 const Home = (): JSX.Element => {
   const reduxDispatch = useDispatch()
@@ -97,6 +98,7 @@ const Home = (): JSX.Element => {
     <GeneralContainer>
       <ContainerApp>
         <Container>
+          <Helmet title="GitHub Search" />
           <TitleHeader>
             <TextHeader>GitHub Profile</TextHeader>
           </TitleHeader>
@@ -151,7 +153,7 @@ const Home = (): JSX.Element => {
             />
           </ComponentIsVisible>
 
-          <ComponentIsVisible when={isLoading && !isError}>
+          <ComponentIsVisible when={isLoading}>
             <Loading />
           </ComponentIsVisible>
         </Container>

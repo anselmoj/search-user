@@ -2,13 +2,13 @@ import styled from 'styled-components'
 import colors from '../../styles/colors'
 
 export const Section = styled.div`
-  /* height: 550px; */
+  /* height: 100%; */
   width: 650px;
   background: ${colors.grey700};
   border-radius: 0.5rem;
   border-bottom: 0.5rem solid ${colors.blue500};
 
-  @media (max-width: 430px) {
+  @media screen and (max-width: 430px) {
     width: 300px;
   }
 `
@@ -47,5 +47,9 @@ export const Title = styled.h1`
   margin-left: 14rem;
   font-size: 20px;
   color: ${colors.white500};
+
+  @media screen and (max-width: 425px) {
+    margin-left: 3rem;
+  }
 `
 export const EmptyThumbnail = styled.div``

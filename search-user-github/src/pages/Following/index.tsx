@@ -11,7 +11,7 @@ import { useReduxDispatch } from '../../hooks/useReduxDispatch'
 import { useReduxSelector } from '../../hooks/useReduxSelector'
 import { followingActions } from '../../store/slices/following'
 import followingSelectors from '../../store/slices/following/selectors'
-import followingNotFound from '../../assets/utils/not-data.svg'
+import followingNotFound from '../../assets/utils/user-not-found.svg'
 import {
   ContainerBackButton,
   Content,
@@ -20,6 +20,7 @@ import {
   Section,
   Title,
 } from './styles'
+import { Helmet } from 'react-helmet'
 
 function Following() {
   const reduxDispatch = useReduxDispatch()
@@ -53,6 +54,7 @@ function Following() {
 
   return (
     <Section>
+      <Helmet title="Seguindo" />
       <Header>
         <ContainerBackButton onClick={handleGoBack}>
           <FiChevronsLeft size={26} />

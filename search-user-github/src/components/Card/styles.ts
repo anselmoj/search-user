@@ -25,4 +25,8 @@ export const Image = styled.img`
 `
 export const Text = styled.p`
   margin-top: 0.5rem;
+
+  @media screen and (max-width: 480px) {
+    font-size: 0.6rem;
+  }
 `
