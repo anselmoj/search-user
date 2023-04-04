@@ -14,7 +14,7 @@ git pull origin master
 yarn 
 ```
 
-## 🚀 **Start na aplicação**
+## 🚀 **Playground**
 Para iniciar o projeto em ambiente de desenvolvimento basta rodar o comando yarn dev
 ```
 yarn dev
