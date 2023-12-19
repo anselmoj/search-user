@@ -1,12 +1,13 @@
 <br/>
-O GitHub Profile é um buscador de perfis do github.
+GitHub Profile Search
+The GitHub Profile Search is a tool that allows you to search for profiles on GitHub efficiently and intuitively.
 
 <br/>
 
 
-## 🚀 **Iniciando**
+## 🚀 **Getting Starting**
 
-Para iniciar o projeto em ambiente de desenvolvimento você deve começar clonando esse repositório, entrando na branch de master instalando todas as dependências:
+Clone the main repository:
 
 ```
 git clone git@github.com:RacSystems/search-user.git
@@ -14,8 +15,8 @@ git pull origin master
 yarn 
 ```
 
-## 🚀 **Playground**
-Para iniciar o projeto em ambiente de desenvolvimento basta rodar o comando yarn dev
+## 🚀 **Development Environment**
+To initiate the project in local development mode, use the following command:
 ```
 yarn dev
 ```
